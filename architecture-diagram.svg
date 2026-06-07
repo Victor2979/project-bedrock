@@ -1,0 +1,87 @@
+<svg viewBox="0 0 980 720" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="980" height="720" fill="#f6f8fa"/>
+  <text x="490" y="34" text-anchor="middle" font-size="22" font-weight="700" fill="#232f3e">Project Bedrock — InnovateMart EKS Architecture</text>
+  <text x="490" y="54" text-anchor="middle" font-size="12" fill="#687078">Region: us-east-1   •   Tag: Project=karatu-2025-capstone</text>
+  <rect x="40" y="90" width="120" height="50" rx="6" fill="#e7f0fe" stroke="#3b78e7"/>
+  <text x="100" y="120" text-anchor="middle" font-size="13" fill="#1a3b73">Internet / Users</text>
+  <rect x="220" y="90" width="150" height="50" rx="6" fill="#fde9d9" stroke="#e07b39"/>
+  <text x="295" y="112" text-anchor="middle" font-size="13" font-weight="600" fill="#8a4a16">ALB (Ingress)</text>
+  <text x="295" y="128" text-anchor="middle" font-size="10" fill="#8a4a16">AWS LB Controller</text>
+  <line x1="160" y1="115" x2="220" y2="115" stroke="#3b78e7" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="40" y="170" width="600" height="430" rx="10" fill="none" stroke="#7d3cf3" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="55" y="190" font-size="13" font-weight="700" fill="#7d3cf3">VPC  project-bedrock-vpc  (10.0.0.0/16, 2 AZs)</text>
+  <rect x="60" y="205" width="560" height="55" rx="6" fill="#eafaf0" stroke="#34a853"/>
+  <text x="72" y="223" font-size="11" font-weight="600" fill="#1e7e40">Public Subnets (2 AZs)</text>
+  <text x="72" y="240" font-size="10" fill="#1e7e40">NAT Gateway  •  ALB</text>
+  <line x1="295" y1="140" x2="295" y2="205" stroke="#e07b39" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="60" y="275" width="560" height="180" rx="6" fill="#eef3fb" stroke="#3b78e7"/>
+  <text x="72" y="293" font-size="11" font-weight="600" fill="#1a3b73">Private Subnets (2 AZs) — EKS Cluster: project-bedrock-cluster (v1.34)</text>
+  <rect x="80" y="305" width="520" height="135" rx="6" fill="#ffffff" stroke="#9aa4b2"/>
+  <text x="92" y="322" font-size="11" font-weight="600" fill="#444">Namespace: retail-app</text>
+  <g font-size="10" fill="#232f3e">
+    <rect x="95"  y="335" width="80" height="38" rx="4" fill="#fef7e0" stroke="#f4b400"/>
+    <text x="135" y="350" text-anchor="middle">ui</text>
+    <text x="135" y="364" text-anchor="middle" font-size="8">frontend</text>
+    <rect x="185" y="335" width="80" height="38" rx="4" fill="#fef7e0" stroke="#f4b400"/>
+    <text x="225" y="350" text-anchor="middle">catalog</text>
+    <text x="225" y="364" text-anchor="middle" font-size="8">→ MySQL</text>
+    <rect x="275" y="335" width="80" height="38" rx="4" fill="#fef7e0" stroke="#f4b400"/>
+    <text x="315" y="350" text-anchor="middle">orders</text>
+    <text x="315" y="364" text-anchor="middle" font-size="8">→ Postgres</text>
+    <rect x="365" y="335" width="80" height="38" rx="4" fill="#fef7e0" stroke="#f4b400"/>
+    <text x="405" y="350" text-anchor="middle">carts</text>
+    <text x="405" y="364" text-anchor="middle" font-size="8">→ DynamoDB</text>
+    <rect x="455" y="335" width="80" height="38" rx="4" fill="#fef7e0" stroke="#f4b400"/>
+    <text x="495" y="350" text-anchor="middle">checkout</text>
+    <text x="495" y="364" text-anchor="middle" font-size="8">→ Redis</text>
+  </g>
+  <rect x="95" y="392" width="170" height="34" rx="4" fill="#f0eafd" stroke="#7d3cf3"/>
+  <text x="180" y="413" text-anchor="middle" font-size="9" fill="#5a23b0">In-cluster: RabbitMQ + Redis (pods)</text>
+  <line x1="295" y1="140" x2="135" y2="335" stroke="#999" stroke-width="1" stroke-dasharray="3 3"/>
+  <rect x="660" y="275" width="280" height="180" rx="8" fill="#fdeef0" stroke="#d93838"/>
+  <text x="675" y="293" font-size="12" font-weight="700" fill="#a32020">Managed Data Layer (private)</text>
+  <rect x="675" y="305" width="120" height="44" rx="4" fill="#fff" stroke="#d93838"/>
+  <text x="735" y="324" text-anchor="middle" font-size="10">RDS MySQL</text>
+  <text x="735" y="338" text-anchor="middle" font-size="8">catalog</text>
+  <rect x="805" y="305" width="120" height="44" rx="4" fill="#fff" stroke="#d93838"/>
+  <text x="865" y="324" text-anchor="middle" font-size="10">RDS Postgres</text>
+  <text x="865" y="338" text-anchor="middle" font-size="8">orders</text>
+  <rect x="675" y="358" width="120" height="44" rx="4" fill="#fff" stroke="#d93838"/>
+  <text x="735" y="377" text-anchor="middle" font-size="10">DynamoDB</text>
+  <text x="735" y="391" text-anchor="middle" font-size="8">carts</text>
+  <rect x="805" y="358" width="120" height="44" rx="4" fill="#fff" stroke="#1e7e40"/>
+  <text x="865" y="377" text-anchor="middle" font-size="9">SSM Param Store</text>
+  <text x="865" y="391" text-anchor="middle" font-size="8">DB secrets</text>
+  <text x="675" y="424" font-size="9" fill="#a32020">SG: inbound only from EKS node SG</text>
+  <line x1="600" y1="354" x2="660" y2="354" stroke="#d93838" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="660" y="170" width="280" height="80" rx="8" fill="#e9f0e9" stroke="#1e7e40"/>
+  <text x="800" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#1e7e40">CloudWatch</text>
+  <text x="800" y="210" text-anchor="middle" font-size="9" fill="#1e7e40">Control-plane logs (api, audit, authenticator,</text>
+  <text x="800" y="223" text-anchor="middle" font-size="9" fill="#1e7e40">controllerManager, scheduler)</text>
+  <text x="800" y="239" text-anchor="middle" font-size="9" fill="#1e7e40">Container logs via CW Observability add-on</text>
+  <line x1="340" y1="275" x2="660" y2="240" stroke="#1e7e40" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)"/>
+  <rect x="40" y="630" width="900" height="70" rx="8" fill="#fff7e6" stroke="#f4b400"/>
+  <text x="55" y="650" font-size="12" font-weight="700" fill="#8a6d00">Event-Driven (Serverless)</text>
+  <rect x="180" y="648" width="150" height="40" rx="5" fill="#fff" stroke="#f4b400"/>
+  <text x="255" y="672" text-anchor="middle" font-size="11">S3: bedrock-assets-[id]</text>
+  <text x="360" y="672" font-size="16" fill="#8a6d00">→</text>
+  <rect x="400" y="648" width="180" height="40" rx="5" fill="#fff" stroke="#e07b39"/>
+  <text x="490" y="667" text-anchor="middle" font-size="11">Lambda: bedrock-asset-processor</text>
+  <text x="490" y="680" text-anchor="middle" font-size="8">S3 ObjectCreated trigger</text>
+  <text x="600" y="672" font-size="16" fill="#8a6d00">→</text>
+  <rect x="630" y="648" width="200" height="40" rx="5" fill="#fff" stroke="#1e7e40"/>
+  <text x="730" y="672" text-anchor="middle" font-size="11">CloudWatch Logs: "Image received"</text>
+  <rect x="660" y="470" width="280" height="60" rx="8" fill="#eef3fb" stroke="#3b78e7"/>
+  <text x="800" y="490" text-anchor="middle" font-size="11" font-weight="700" fill="#1a3b73">CI/CD: GitHub Actions</text>
+  <text x="800" y="506" text-anchor="middle" font-size="9" fill="#1a3b73">PR → terraform plan (PR comment)</text>
+  <text x="800" y="520" text-anchor="middle" font-size="9" fill="#1a3b73">merge → terraform apply</text>
+  <rect x="60" y="470" width="320" height="60" rx="8" fill="#f0eafd" stroke="#7d3cf3"/>
+  <text x="220" y="490" text-anchor="middle" font-size="11" font-weight="700" fill="#5a23b0">IAM: bedrock-dev-view</text>
+  <text x="220" y="506" text-anchor="middle" font-size="9" fill="#5a23b0">Console ReadOnlyAccess + s3:PutObject</text>
+  <text x="220" y="520" text-anchor="middle" font-size="9" fill="#5a23b0">K8s RBAC: view ClusterRole (read-only)</text>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#555"/>
+    </marker>
+  </defs>
+</svg>
